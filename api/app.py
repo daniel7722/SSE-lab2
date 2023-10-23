@@ -25,6 +25,3 @@ def process_query(q):
 
     elif q == "sausages":
         return "chicken"
-
-    elif q == "Me":
-        return "you"
