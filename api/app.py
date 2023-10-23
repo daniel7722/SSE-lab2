@@ -22,4 +22,3 @@ def process_query(q):
 
     elif q == "asteroids":
         return "Unknown"
-    
