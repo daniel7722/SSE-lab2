@@ -23,8 +23,5 @@ def process_query(q):
     elif q == "asteroids":
         return "Unknown"
 
-	elif q == "sausages":
-		return "chicken"
-
-    elif q == "Me":
-        return "you"
+    elif q == "sausages":
+        return "chicken"

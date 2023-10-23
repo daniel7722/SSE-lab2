@@ -12,8 +12,4 @@ def test_does_not_know_about_asteroids():
 
 
 def test_knows_about_sausages():
-	assert process_query("sausages") == "chicken"
-
-
-def test_does_know_about_me():
-    assert process_query("Me") == "you"
+    assert process_query("sausages") == "chicken"
