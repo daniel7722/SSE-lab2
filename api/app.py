@@ -13,3 +13,13 @@ def submit():
 @app.route("/")
 def hello_world():
     return render_template("index.html")
+
+
+@app.route("/query", methods=["GET"])
+def process_query(q):
+    if q == "dinosaurs":
+        return "Dinosaurs ruled the Earth 200 milion years ago"
+
+    elif q == "asteroids":
+        return "Unknown"
+    
