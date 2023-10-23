@@ -22,3 +22,6 @@ def process_query(q):
 
     elif q == "asteroids":
         return "Unknown"
+
+    elif q == "Me":
+        return "you"
