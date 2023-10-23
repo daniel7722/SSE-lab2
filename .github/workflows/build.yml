@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: 3.9
       - name: Run pytest
-        run: pytest api/*.py
+        run: pytest
 
   deploy-to-vercel:
     needs: unit-tests
