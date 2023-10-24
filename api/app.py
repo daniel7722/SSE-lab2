@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request send_file
+import subprocess
+import os
 
 app = Flask(__name__)
 
@@ -32,3 +34,34 @@ def process_query(q):
 
     elif q == "sausages":
         return "chicken"
+
+
+@app.route("/solve_sudoku" , methods=["POST"])
+def solve_sudoku():
+    uploaded_file = request.files['dat_file']
+
+    dat_file_path = os.path.join("./temporary", "input.dat")
+    dat_file_output_path = os.path.join("./temporary", "solution.dat")
+    uploaded_file.save(dat_file_path)
+
+
+    cplusplus_command = "./solver " + dat_file_path + " " + dat_file_output_path
+    subprocess.run(cplusplus_command, shell=True)
+
+    data = convert_file(dat_file_output_path)
+
+    return render_template("solution.html", data=data)
+
+def convert_file(datfile):
+    data = []
+    with open(datfile, 'r') as file:
+        for row in range(9):
+            row_data = []
+            for col in range(9):
+                content = file.read(1)
+                row_data.append(content)
+            file.read(1)
+            data.append(row_data)
+    return data
+    
+
