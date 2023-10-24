@@ -32,8 +32,8 @@ th {
       > td {
         padding: $table-cell-padding;
         line-height: $line-height-base;
-        vertical-align: top;
-        border-top: 1px solid $table-border-color;
+        vertical-align: middle !important;
+        border-top: 1px transparent $table-border-color;
       }
     }
   }
