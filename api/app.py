@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request send_file
+from flask import Flask, render_template, request
 import subprocess
 import os
 
@@ -36,21 +36,20 @@ def process_query(q):
         return "chicken"
 
 
-@app.route("/solve_sudoku" , methods=["POST"])
+@app.route("/solve_sudoku", methods=["POST"])
 def solve_sudoku():
     uploaded_file = request.files['dat_file']
-
     dat_file_path = os.path.join("./temporary", "input.dat")
     dat_file_output_path = os.path.join("./temporary", "solution.dat")
     uploaded_file.save(dat_file_path)
-
-
-    cplusplus_command = "./solver " + dat_file_path + " " + dat_file_output_path
+    cplusplus_command = "./solver "
+    +dat_file_path
+    +" "
+    +dat_file_output_path
     subprocess.run(cplusplus_command, shell=True)
-
     data = convert_file(dat_file_output_path)
-
     return render_template("solution.html", data=data)
+
 
 def convert_file(datfile):
     data = []
@@ -63,5 +62,3 @@ def convert_file(datfile):
             file.read(1)
             data.append(row_data)
     return data
-    
-
