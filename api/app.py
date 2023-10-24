@@ -25,7 +25,6 @@ def get_query():
 
 
 def process_query(q):
-
     if q == "dinosaurs":
         return "Dinosaurs ruled the Earth 200 milion years ago"
 
@@ -34,6 +33,13 @@ def process_query(q):
 
     elif q == "sausages":
         return "chicken"
+
+    elif q == "dadjoke":
+        return "DO NOT TELL ME DAD JOKE"
+
+
+def add_numbers(a, b):
+    return a+b
 
 
 @app.route("/solve_sudoku", methods=["POST"])
