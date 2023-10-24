@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import subprocess
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 
 @app.route("/submit", methods=["POST"])
@@ -15,6 +15,10 @@ def submit():
 @app.route("/")
 def hello_world():
     return render_template("index.html")
+
+@app.route("/sudoku")
+def sudoku():
+    return render_template("portfolio.html")
 
 
 @app.route("/query", methods=["GET"])
@@ -38,10 +42,22 @@ def process_query(q):
 
 @app.route("/solve_sudoku", methods=["POST"])
 def solve_sudoku():
-    uploaded_file = request.files['dat_file']
+
+    grid_data = []
+    for row in range(9):
+        row_data = []
+        for col in range(9):
+            input_name = f'{row}.{col}'
+            cell_value = int(request.form.get(input_name, 0))
+            row_data.append(cell_value)
+        grid_data.append(row_data)
+
+    with open('temporary/input.dat', 'w') as file:
+            for row in grid_data:
+                file.write(' '.join(map(str, row)) + '\n')
+
     dat_file_path = os.path.join("./temporary", "input.dat")
     dat_file_output_path = os.path.join("./temporary", "solution.dat")
-    uploaded_file.save(dat_file_path)
     cplusplus_command = "./solver "
     +dat_file_path
     +" "
