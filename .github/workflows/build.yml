@@ -30,6 +30,23 @@ jobs:
       - name: Run pytest
         run: pytest
 
+  code-quality-test:
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run flake8
+        run: flake8 .
+      - name: Run MyPy
+        run: mypy api
+
   deploy-to-vercel:
     needs: unit-tests
     runs-on: ubuntu-latest
