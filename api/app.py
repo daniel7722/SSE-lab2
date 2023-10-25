@@ -58,7 +58,7 @@ def solve_sudoku():
             if (cell_value == ''):
                 cell_value = '.'
             row_data.append(cell_value)
-            grid_data.append(row_data)
+        grid_data.append(row_data)
         print(grid_data)
     with open('temporary/input.dat', 'w') as file:
         for row in grid_data:
