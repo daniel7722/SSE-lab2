@@ -76,11 +76,11 @@ jobs:
   
   rollback-if-failed:
     runs-on: ubuntu-latest
+    if: failure()
     needs: [python-formatting, unit-tests, code-quality-test, deploy-to-vercel]
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Rollback on failure
-          if: failure()
           run: git reset --soft HEAD~1
