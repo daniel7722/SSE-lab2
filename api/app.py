@@ -71,13 +71,8 @@ def solve_sudoku():
     dat_file_output_path = os.path.join("./temporary", "solution.dat")
     cplusplus_command = "./solver " + dat_file_path + " " + dat_file_output_path
     subprocess.run(cplusplus_command, shell=True)
-    data = convert_file(dat_file_output_path)
-    return render_template("solution.html", data=data)
-
-
-def convert_file(datfile):
     data = []
-    with open(datfile, 'r') as file:
+    with open(dat_file_output_path, 'r') as file:
         for row in range(9):
             row_data = []
             for col in range(9):
@@ -86,4 +81,7 @@ def convert_file(datfile):
             file.read(1)
             data.append(row_data)
             print(row_data)
-    return data
+    return render_template("solution.html", data=data)
+
+
+
