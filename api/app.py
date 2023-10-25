@@ -54,20 +54,22 @@ def solve_sudoku():
         row_data = []
         for col in range(9):
             input_name = f'{row}.{col}'
-            cell_value = int(request.form.get(input_name, 0))
+            cell_value = request.form.get(input_name, ".")
+            if (cell_value == ''):
+                cell_value = '.'
             row_data.append(cell_value)
         grid_data.append(row_data)
-
+    print(grid_data)
     with open('temporary/input.dat', 'w') as file:
             for row in grid_data:
-                file.write(' '.join(map(str, row)) + '\n')
+                file.write("".join(map(str, row)) + '\n')
+
+    compile_command = ["g++", "-Wall", "solver.cpp", "-o", "solver"]
+    subprocess.run(compile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
     dat_file_path = os.path.join("./temporary", "input.dat")
     dat_file_output_path = os.path.join("./temporary", "solution.dat")
-    cplusplus_command = "./solver "
-    +dat_file_path
-    +" "
-    +dat_file_output_path
+    cplusplus_command = "./solver " + dat_file_path + " " + dat_file_output_path
     subprocess.run(cplusplus_command, shell=True)
     data = convert_file(dat_file_output_path)
     return render_template("solution.html", data=data)
@@ -83,4 +85,5 @@ def convert_file(datfile):
                 row_data.append(content)
             file.read(1)
             data.append(row_data)
+            print(row_data)
     return data

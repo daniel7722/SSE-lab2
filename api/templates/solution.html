@@ -37,7 +37,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-2">
-						<div id="fh5co-logo"><a href="index.html">Daniel//Raj<span>.</span></a></div>
+						<div id="fh5co-logo"><a href="/"">Daniel//Raj<span>.</span></a></div>
 					</div>
 					<div class="col-xs-10 text-right menu-1">
 						<ul>
@@ -55,21 +55,86 @@
 		<div class="container">
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-					<h2>9x9 Sudoku Solver</h2>
-					<p>Please enter the values of the sudoku in the grid below</p>
+					<h2>This puzzle can be solved!</h2>
+					<p>Please view the answer below</p>
 				</div>
 			</div>
 			<div class="container">
 					<form action="/solve_sudoku" method="POST">
 					<div class="form-group">
 						<table class="table">
-							{% for row in data %}
-                            <tr>
-                                {% for cell in row %}
-                                <td>{{ cell }}</td>
-                                {% endfor %}
-                            </tr>
-                            {% endfor %}
+							<tbody>
+								<tr>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2></h2>
+										</div>
+									</td>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>A</h2>
+										</div>
+									</td>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>B</h2>
+										</div>
+									</td>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>C</h2>
+										</div>
+									</td>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>D</h2>
+										</div>
+									</td>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>E</h2>
+										</div>
+									</td>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>F</h2>
+										</div>
+									</td>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>G</h2>
+										</div>
+									</td>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>H</h2>
+										</div>
+									</td>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>I</h2>
+										</div>
+									</td>
+								</tr>
+								{% for row in data %}
+                            	<tr>
+									<td>
+										<div class="col-md-13 text-center">
+											<h2>{{ loop.index }}</h2>
+										</div>
+									</td>
+                                	{% for cell in row %}
+                                	<td>
+										<div class="col-md-16 text-center">
+											<div class="form-groups">
+												<p>{{ cell }}</p>
+											</div>
+										</div>
+									</td>
+                                	{% endfor %}
+                            	</tr>
+                            	{% endfor %}   
+							</tbody>
 						</table>
 					</div>
 					</form>

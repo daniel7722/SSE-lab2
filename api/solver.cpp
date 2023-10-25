@@ -139,7 +139,7 @@ bool solve_board(char board[9][9], int row, int col){
 
 int main (int argc, char* argv[]) {
   if (argc != 3) {
-    cerr << "usage: " << argv[0] << "input.dat output.dat" << endl;
+    cerr << "usage: " << argv[0] << " input.dat output.dat" << endl;
     return 1;
   }
   

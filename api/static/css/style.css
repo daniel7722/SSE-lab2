@@ -60,9 +60,6 @@ a:hover, a:active, a:focus {
   text-decoration: none;
 }
 
-p {
-  margin-bottom: 30px;
-}
 
 h1, h2, h3, h4, h5, h6, figure {
   color: #05836c;
@@ -661,6 +658,10 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 7em 0;
   clear: both;
 }
+
+#fh5co-portfolio{
+  padding: 3em 0;
+}
 @media screen and (max-width: 768px) {
   #fh5co-slider,
   #fh5co-about,
@@ -713,6 +714,7 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     appearance: none;
 }
+
 
 
 .fh5co-heading {
@@ -1100,17 +1102,74 @@ input[type=number] {
   color: rgba(0, 0, 0, 0);
 }
 
+#fh5co-portfolio input[type=number]::placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+
+#fh5co-portfolio input[type=number]::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, 0);
+}
+
 #fh5co-portfolio input[type=number]{
   font-size: 40px;
   text-align: center;
+  height:max-content;
+  border: none;
 }
 
-#fh5co-portfolio .form-group{
-  margin-bottom: 0px;
+#fh5co-portfolio .col-md-13{
+  height: max-content !important;
+  margin: none !important;
 }
+
+#fh5co-portfolio .col-md-16{
+  height: 100%;
+  margin: none !important;
+  vertical-align: middle !important;
+}
+
+.form-groups {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: "Inconsolata", Arial, sans-serif;
+}
+
+#fh5co-portfolio .col-md-16 .form-groups p {
+  font-size: 35px !important;
+  vertical-align: middle !important;
+  margin-top: 10px !important;
+  color: #e14b7e;
+}
+
+.table .form-group{
+  margin-bottom: none !important;
+}
+
 
 #fh5co-portfolio h2{
   margin-bottom: 0px;
+}
+
+#fh5co-portfolio .table h2 {
+  margin-bottom: 0px;
+  color: #fafafa;
+}
+
+.table td {
+  vertical-align: middle !important;
+  border-right:#ffffff solid 1px !important;
+  border-top: none !important;
+  border-bottom: #ffffff solid 1px !important;
+}
+
+td:nth-child(3n+1) {
+  border-right: 8px solid #08cbb7 !important;
+}
+
+tr:nth-child(3n+1) td {
+  border-bottom: 8px solid #08cbb7 !important;
 }
 
 input::-webkit-outer-spin-button,
@@ -1118,6 +1177,17 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+#fh5co-portfolio .form-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#fh5co-portfolio .form-group .btn-primary{
+  width: 100%;
+}
+
 
 #fh5co-offcanvas {
   position: absolute;
