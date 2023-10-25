@@ -1,8 +1,9 @@
-from app import process_query, add_numbers
+from app import app, process_query, add_numbers, render_template
 
 
 def test_knows_about_dinosaurs():
-    assert process_query("dinosaurs") == "Dinosaurs ruled the Earth 200 milion years ago"
+    with app.test_request_context():
+        assert render_template("dinosaur.html") in process_query("dinosaurs")
 
 
 def test_does_not_know_about_asteroids():

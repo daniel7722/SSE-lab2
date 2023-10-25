@@ -29,7 +29,7 @@ def get_query():
 
 def process_query(q):
     if q == "dinosaurs":
-        return "Dinosaurs ruled the Earth 200 milion years ago"
+        return render_template("dinosaur.html")
 
     elif q == "asteroids":
         return "Unknown"
