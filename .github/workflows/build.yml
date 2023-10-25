@@ -27,8 +27,25 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Install xml2js
+        run: npm install xml2js
       - name: Run pytest
-        run: pytest
+        run: pytest --junitxml=pytest-results.xml
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: pytest-results.xml
+      - name: View test results
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs');
+            const xml2js = require('xml2js');
+
+            const xmlData = fs.readFileSync('./pytest-results.xml', 'utf8');
+            xml2js.parseString(xmlData, (err, result) => {
+            console.log(JSON.stringify(result)); });
 
   code-quality-test:
     needs: unit-tests
@@ -58,3 +75,14 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: '--prod'
+  
+  rollback-if-failed:
+    runs-on: ubuntu-latest
+    if: failure()
+    needs: [python-formatting, unit-tests, code-quality-test, deploy-to-vercel]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Rollback on failure
+        run: git reset --soft HEAD~1
