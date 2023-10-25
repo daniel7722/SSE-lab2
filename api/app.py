@@ -1,6 +1,4 @@
 from flask import Flask, render_template, request
-import subprocess
-import os
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -60,12 +58,13 @@ def solve_sudoku():
             row_data.append(cell_value)
         grid_data.append(row_data)
     print(grid_data)
-    if is_board_valid(grid_data) == True:
+    if is_board_valid(grid_data):
         solved = solve_board(grid_data, 0)
-        if solved == True:
+        if solved:
             return render_template("solution.html", data=grid_data)
     print("No Solution Found")
     return render_template("no_solution.html")
+
 
 def solve_board(board, depth):
     print(depth)
@@ -73,57 +72,48 @@ def solve_board(board, depth):
         for col in range(9):
             if board[row][col] == '.':
                 for num in map(str, range(1, 10)):
-                    print("not valid digit")
-
-                    if is_valid_move(board, row, col, num) == True:
-                        print("VALID DIGIT")
+                    if is_valid_move(board, row, col, num):
                         board[row][col] = num
-
-                        if solve_board(board, depth+1) == True:
+                        if solve_board(board, depth + 1):
                             return True
-                        
                         board[row][col] = '.'
-
                 return False
     return True
+
 
 def is_valid_move(board, row, col, num):
     # Check if the number is already in the same row or column
     if num in board[row] or num in [board[i][col] for i in range(9)]:
         return False
-    
     # Check if the number is in the same 3x3 subgrid
     subgrid_row, subgrid_col = 3 * (row // 3), 3 * (col // 3)
     for i in range(subgrid_row, subgrid_row + 3):
         for j in range(subgrid_col, subgrid_col + 3):
             if board[i][j] == num:
                 return False
-
     return True
 
+
 def is_board_valid(board):
-    
     for row in board:
-        for num in map(str, range(1,10)):
+        for num in map(str, range(1, 10)):
             count_row = 0
             for pos1 in row:
                 if num == pos1:
                     count_row += 1
             if count_row == 2:
                 return False
-        
     for col in range(9):
-        for num in map(str, range(1,10)):
+        for num in map(str, range(1, 10)):
             count_col = 0
             for pos2 in [board[i][col] for i in range(9)]:
                 if num == pos2:
                     count_col += 1
             if count_col == 2:
                 return False
-            
-    for row in range(0,9,3):
-        for col in range(0,9,3):
-            for num in map(str, range(1,10)):
+    for row in range(0, 9, 3):
+        for col in range(0, 9, 3):
+            for num in map(str, range(1, 10)):
                 count_square = 0
                 for i in range(row, row + 3):
                     for j in range(col, col + 3):
@@ -131,5 +121,4 @@ def is_board_valid(board):
                             count_square += 1
                         if count_square == 2:
                             return False
-
     return True
