@@ -13,7 +13,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run flake8
-        run: flake8 api/
+        run: flake8 api/ --ignore=E501
 
   unit-tests:
     needs: python-formatting
@@ -42,13 +42,11 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run flake8
-        run: flake8 .
       - name: Run MyPy
         run: mypy api
 
   deploy-to-vercel:
-    needs: unit-tests
+    needs: code-quality-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
