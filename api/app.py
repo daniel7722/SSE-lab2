@@ -16,6 +16,7 @@ def submit():
 def hello_world():
     return render_template("index.html")
 
+
 @app.route("/sudoku")
 def sudoku():
     return render_template("portfolio.html")
@@ -43,12 +44,11 @@ def process_query(q):
 
 
 def add_numbers(a, b):
-    return a+b
+    return a + b
 
 
 @app.route("/solve_sudoku", methods=["POST"])
 def solve_sudoku():
-
     grid_data = []
     for row in range(9):
         row_data = []
@@ -58,11 +58,11 @@ def solve_sudoku():
             if (cell_value == ''):
                 cell_value = '.'
             row_data.append(cell_value)
-        grid_data.append(row_data)
-    print(grid_data)
+            grid_data.append(row_data)
+        print(grid_data)
     with open('temporary/input.dat', 'w') as file:
-            for row in grid_data:
-                file.write("".join(map(str, row)) + '\n')
+        for row in grid_data:
+            file.write("".join(map(str, row)) + '\n')
 
     compile_command = ["g++", "-Wall", "solver.cpp", "-o", "solver"]
     subprocess.run(compile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
