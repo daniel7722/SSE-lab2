@@ -82,6 +82,3 @@ def solve_sudoku():
             data.append(row_data)
             print(row_data)
     return render_template("solution.html", data=data)
-
-
-
