@@ -27,6 +27,8 @@ jobs:
           python-version: 3.9
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Install xml2js
+        run: npm install xml2js
       - name: Run pytest
         run: pytest --junitxml=pytest-results.xml
       - name: Upload Test Results
