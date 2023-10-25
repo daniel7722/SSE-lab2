@@ -1,6 +1,4 @@
 from flask import Flask, render_template, request
-import subprocess
-import os
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -58,27 +56,69 @@ def solve_sudoku():
             if (cell_value == ''):
                 cell_value = '.'
             row_data.append(cell_value)
-            grid_data.append(row_data)
-        print(grid_data)
-    with open('temporary/input.dat', 'w') as file:
-        for row in grid_data:
-            file.write("".join(map(str, row)) + '\n')
+        grid_data.append(row_data)
+    print(grid_data)
+    if is_board_valid(grid_data):
+        solved = solve_board(grid_data, 0)
+        if solved:
+            return render_template("solution.html", data=grid_data)
+    print("No Solution Found")
+    return render_template("no_solution.html")
 
-    compile_command = ["g++", "-Wall", "solver.cpp", "-o", "solver"]
-    subprocess.run(compile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
-    dat_file_path = os.path.join("./temporary", "input.dat")
-    dat_file_output_path = os.path.join("./temporary", "solution.dat")
-    cplusplus_command = "./solver " + dat_file_path + " " + dat_file_output_path
-    subprocess.run(cplusplus_command, shell=True)
-    data = []
-    with open(dat_file_output_path, 'r') as file:
-        for row in range(9):
-            row_data = []
-            for col in range(9):
-                content = file.read(1)
-                row_data.append(content)
-            file.read(1)
-            data.append(row_data)
-            print(row_data)
-    return render_template("solution.html", data=data)
+def solve_board(board, depth):
+    print(depth)
+    for row in range(9):
+        for col in range(9):
+            if board[row][col] == '.':
+                for num in map(str, range(1, 10)):
+                    if is_valid_move(board, row, col, num):
+                        board[row][col] = num
+                        if solve_board(board, depth + 1):
+                            return True
+                        board[row][col] = '.'
+                return False
+    return True
+
+
+def is_valid_move(board, row, col, num):
+    # Check if the number is already in the same row or column
+    if num in board[row] or num in [board[i][col] for i in range(9)]:
+        return False
+    # Check if the number is in the same 3x3 subgrid
+    subgrid_row, subgrid_col = 3 * (row // 3), 3 * (col // 3)
+    for i in range(subgrid_row, subgrid_row + 3):
+        for j in range(subgrid_col, subgrid_col + 3):
+            if board[i][j] == num:
+                return False
+    return True
+
+
+def is_board_valid(board):
+    for row in board:
+        for num in map(str, range(1, 10)):
+            count_row = 0
+            for pos1 in row:
+                if num == pos1:
+                    count_row += 1
+            if count_row == 2:
+                return False
+    for col in range(9):
+        for num in map(str, range(1, 10)):
+            count_col = 0
+            for pos2 in [board[i][col] for i in range(9)]:
+                if num == pos2:
+                    count_col += 1
+            if count_col == 2:
+                return False
+    for row in range(0, 9, 3):
+        for col in range(0, 9, 3):
+            for num in map(str, range(1, 10)):
+                count_square = 0
+                for i in range(row, row + 3):
+                    for j in range(col, col + 3):
+                        if board[i][j] == num:
+                            count_square += 1
+                        if count_square == 2:
+                            return False
+    return True
