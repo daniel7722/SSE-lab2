@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
+import subprocess
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 
 @app.route("/submit", methods=["POST"])
@@ -15,6 +17,11 @@ def hello_world():
     return render_template("index.html")
 
 
+@app.route("/sudoku")
+def sudoku():
+    return render_template("portfolio.html")
+
+
 @app.route("/query", methods=["GET"])
 def get_query():
     q = request.args.get("q")
@@ -23,7 +30,6 @@ def get_query():
 
 
 def process_query(q):
-
     if q == "dinosaurs":
         return "Dinosaurs ruled the Earth 200 milion years ago"
 
@@ -32,3 +38,52 @@ def process_query(q):
 
     elif q == "sausages":
         return "chicken"
+
+    elif q == "dadjoke":
+        return "DO NOT TELL ME DAD JOKE"
+
+
+def add_numbers(a, b):
+    return a + b
+
+
+@app.route("/solve_sudoku", methods=["POST"])
+def solve_sudoku():
+    grid_data = []
+    for row in range(9):
+        row_data = []
+        for col in range(9):
+            input_name = f'{row}.{col}'
+            cell_value = request.form.get(input_name, ".")
+            if (cell_value == ''):
+                cell_value = '.'
+            row_data.append(cell_value)
+            grid_data.append(row_data)
+        print(grid_data)
+    with open('temporary/input.dat', 'w') as file:
+        for row in grid_data:
+            file.write("".join(map(str, row)) + '\n')
+
+    compile_command = ["g++", "-Wall", "solver.cpp", "-o", "solver"]
+    subprocess.run(compile_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+    dat_file_path = os.path.join("./temporary", "input.dat")
+    dat_file_output_path = os.path.join("./temporary", "solution.dat")
+    cplusplus_command = "./solver " + dat_file_path + " " + dat_file_output_path
+    subprocess.run(cplusplus_command, shell=True)
+    data = convert_file(dat_file_output_path)
+    return render_template("solution.html", data=data)
+
+
+def convert_file(datfile):
+    data = []
+    with open(datfile, 'r') as file:
+        for row in range(9):
+            row_data = []
+            for col in range(9):
+                content = file.read(1)
+                row_data.append(content)
+            file.read(1)
+            data.append(row_data)
+            print(row_data)
+    return data
