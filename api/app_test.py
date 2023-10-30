@@ -1,4 +1,10 @@
+import pytest
 from app import app, process_query, add_numbers, render_template
+
+
+@pytest.fixture
+def client():
+    return app.test_client()
 
 
 def test_knows_about_dinosaurs():
@@ -26,3 +32,14 @@ def test_add_number():
 
 def test_knows_team_name():
     assert process_query("What is your name?") == "DR"
+
+
+def test_knows_largest(client):
+    response = client.get('/query?Which of the following numbers is the largest: 1, 35, 8?')
+    assert response.data == '38'
+
+    response = client.get('/query?Which of the following numbers is the largest: 70, 35, 8?')
+    assert response.data == '70'
+
+    response = client.get('/query?Which of the following numbers is the largest: 1, 35, 93?')
+    assert response.data == '93'
