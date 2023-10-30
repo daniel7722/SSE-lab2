@@ -1,5 +1,5 @@
 import pytest
-from app import app, process_query, add_numbers, render_template
+from app import app, process_query, render_template
 
 
 @pytest.fixture
