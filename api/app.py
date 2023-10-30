@@ -50,9 +50,15 @@ def process_query(q):
         numbers = [int(num) for num in numbers]
         return str(largest(numbers))
 
+    elif "plus" in q:
+        request_string = q
+        numbers = re.findall(r'\d+', request_string)
+        numbers = [int(num) for num in numbers]
+        return str(add_numbers(numbers))
 
-def add_numbers(a, b):
-    return a + b
+
+def add_numbers(listOfNumber):
+    return sum(listOfNumber)
 
 
 def largest(listOfNumber):
