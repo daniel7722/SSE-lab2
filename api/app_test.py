@@ -35,11 +35,11 @@ def test_knows_team_name():
 
 
 def test_knows_largest(client):
-    response = client.get('/query?Which of the following numbers is the largest: 1, 35, 8?')
+    response = client.get('/query?q=Which of the following numbers is the largest: 1, 35, 8?')
     assert int(response.data) == 38
 
-    response = client.get('/query?Which of the following numbers is the largest: 70, 35, 8?')
+    response = client.get('/query?q=Which of the following numbers is the largest: 70, 35, 8?')
     assert int(response.data) == 70
 
-    response = client.get('/query?Which of the following numbers is the largest: 1, 35, 93?')
+    response = client.get('/query?q=Which of the following numbers is the largest: 1, 35, 93?')
     assert int(response.data) == 93
