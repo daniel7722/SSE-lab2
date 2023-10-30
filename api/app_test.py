@@ -60,3 +60,14 @@ def test_knows_square_cube(client):
 
     response = client.get('/query?q=Which of the following numbers is both a square and a cube: 3485, 4147, 3025, 64, 599, 3220, 1728?')
     assert response.data == b'64'
+
+
+def test_knows_multiply(client):
+    response = client.get('/query?q=What is 15 multiplied by 86?')
+    assert response.data == b'1290'
+
+    response = client.get('/query?q=What is 17 multiplied by 48?')
+    assert response.data == b'816'
+
+    response = client.get('/query?q=What is 8 multiplied by 3?')
+    assert response.data == b'24'
