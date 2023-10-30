@@ -1,9 +1,11 @@
+import pytest
 from app import app, process_query, add_numbers, render_template
 
 
 @pytest.fixture
 def client():
     return app.test_client()
+
 
 def test_knows_about_dinosaurs():
     with app.test_request_context():
