@@ -25,11 +25,6 @@ def test_can_deliver_dad_jokes():
     assert result == "DO NOT TELL ME DAD JOKE"
 
 
-def test_add_number():
-    result = add_numbers(2, 3)
-    assert result == 5
-
-
 def test_knows_team_name():
     assert process_query("What is your name?") == "DR"
 
@@ -43,3 +38,15 @@ def test_knows_largest(client):
 
     response = client.get('/query?q=Which of the following numbers is the largest: 1, 35, 93?')
     assert response.data == b'93'
+
+
+def test_knows_plus(client):
+    response = client.get('/query?q=What is 84 plus 50?')
+    assert response.data == b'134'
+
+    response = client.get('/query?q=What is 77 plus 17?')
+    assert response.data == b'94'
+
+    response = client.get('/query?q=What is 95 plus 1?')
+    assert response.data == b'96'
+    
