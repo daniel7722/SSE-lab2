@@ -49,4 +49,3 @@ def test_knows_plus(client):
 
     response = client.get('/query?q=What is 95 plus 1?')
     assert response.data == b'96'
-    
