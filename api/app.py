@@ -74,9 +74,9 @@ def largest(listOfNumber):
 
 def squareAndCube(listOfNumber):
     for number in listOfNumber:
-        cube = math.pow(number, 1 / 3)
-        square = math.pow(number, 1 / 2)
-        if cube.is_integer() and square.is_integer():
+        cube = round(math.pow(number, 1 / 3))
+        square = round(math.pow(number, 1 / 2))
+        if cube**3 == number and square**2:
             return number
 
 
