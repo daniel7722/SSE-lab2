@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import re
+import math
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -56,6 +57,12 @@ def process_query(q):
         numbers = [int(num) for num in numbers]
         return str(add_numbers(numbers))
 
+    elif "square" in q:
+        request_string = q
+        numbers = re.findall(r'\d+', request_string)
+        numbers = [int(num) for num in numbers]
+        return str(squareAndCube(numbers))
+
 
 def add_numbers(listOfNumber):
     return sum(listOfNumber)
@@ -63,6 +70,14 @@ def add_numbers(listOfNumber):
 
 def largest(listOfNumber):
     return max(listOfNumber)
+
+
+def squareAndCube(listOfNumber):
+    for number in listOfNumber:
+        cube = math.pow(number, 1 / 3)
+        square = math.pow(number, 1 / 2)
+        if cube.is_integer() and square.is_integer():
+            return number
 
 
 @app.route("/solve_sudoku", methods=["POST"])
