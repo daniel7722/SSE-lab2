@@ -48,7 +48,7 @@ def process_query(q):
         request_string = q
         numbers = re.findall(r'\d+', request_string)
         numbers = [int(num) for num in numbers]
-        return str(largest(numbers))
+        return largest(numbers)
 
 
 def add_numbers(a, b):
