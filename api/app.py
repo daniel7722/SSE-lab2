@@ -31,9 +31,6 @@ def process_query(q):
     if q == "dinosaurs":
         return render_template("dinosaur.html")
 
-    elif q == "What is your name?":
-        return "DR"
-
     elif q == "asteroids":
         return "Unknown"
 
@@ -42,6 +39,9 @@ def process_query(q):
 
     elif q == "dadjoke":
         return "DO NOT TELL ME DAD JOKE"
+
+    elif q == "What is your name?":
+        return "DR"
 
 
 def add_numbers(a, b):
