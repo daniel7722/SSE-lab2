@@ -63,6 +63,12 @@ def process_query(q):
         numbers = [int(num) for num in numbers]
         return str(squareAndCube(numbers))
 
+    elif "muliplied" in q:
+        request_string = q
+        numbers = re.findall(r'\d+', request_string)
+        numbers = [int(num) for num in numbers]
+        return str(multiply_numbers(numbers))
+
 
 def add_numbers(listOfNumber):
     return sum(listOfNumber)
@@ -76,8 +82,15 @@ def squareAndCube(listOfNumber):
     for number in listOfNumber:
         cube = round(math.pow(number, 1 / 3))
         square = round(math.pow(number, 1 / 2))
-        if cube**3 == number and square**2:
+        if cube**3 == number and square**2 == number:
             return number
+
+
+def multiply_numbers(listOfNumber):
+    total = 1
+    for number in listOfNumber:
+        total *= number
+    return total
 
 
 @app.route("/solve_sudoku", methods=["POST"])
