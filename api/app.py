@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import re
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -43,12 +44,19 @@ def process_query(q):
     elif q == "What is your name?":
         return "DR"
 
-    elif q == "Which of the following numbers is the largest: 98, 21, 41?":
-        return '98'
+    elif "largest" in q:
+        request_string = q
+        numbers = re.findall(r'\d+', request_string)
+        numbers = [int(num) for num in numbers]
+        return largest(numbers)
 
 
 def add_numbers(a, b):
     return a + b
+
+
+def largest(listOfNumber):
+    return max(listOfNumber)
 
 
 @app.route("/solve_sudoku", methods=["POST"])
