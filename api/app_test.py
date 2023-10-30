@@ -49,3 +49,14 @@ def test_knows_plus(client):
 
     response = client.get('/query?q=What is 95 plus 1?')
     assert response.data == b'96'
+
+
+def test_knows_square_cube(client):
+    response = client.get('/query?q=Which of the following numbers is both a square and a cube: 2197, 2602, 4096, 1991, 4, 100, 1193?')
+    assert response.data == b'4096'
+
+    response = client.get('/query?q=Which of the following numbers is both a square and a cube: 4518, 484, 3655, 1, 2197, 2746, 3473?')
+    assert response.data == b'1'
+
+    response = client.get('/query?q=Which of the following numbers is both a square and a cube: 3485, 4147, 3025, 64, 599, 3220, 1728?')
+    assert response.data == b'64'
