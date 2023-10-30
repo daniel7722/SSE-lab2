@@ -40,7 +40,7 @@ def process_query(q):
     elif q == "dadjoke":
         return "DO NOT TELL ME DAD JOKE"
 
-    elif q == "What is your name?": 
+    elif q == "What is your name?":
         return "DR"
 
 
