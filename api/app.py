@@ -68,6 +68,8 @@ def process_query(q):
         numbers = re.findall(r'\d+', request_string)
         numbers = [int(num) for num in numbers]
         return str(multiply_numbers(numbers))
+    
+    return ""
 
 
 def add_numbers(listOfNumber):
