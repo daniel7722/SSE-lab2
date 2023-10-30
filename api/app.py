@@ -63,7 +63,7 @@ def process_query(q):
         numbers = [int(num) for num in numbers]
         return str(squareAndCube(numbers))
 
-    elif "muliplied" in q:
+    elif "multiplied" in q:
         request_string = q
         numbers = re.findall(r'\d+', request_string)
         numbers = [int(num) for num in numbers]
