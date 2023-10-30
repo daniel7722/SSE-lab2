@@ -22,3 +22,6 @@ def test_can_deliver_dad_jokes():
 def test_add_number():
     result = add_numbers(2, 3)
     assert result == 5
+
+def test_knows_team_name():
+    assert process_query("What is your name") == "DR"
