@@ -25,4 +25,4 @@ def test_add_number():
 
 
 def test_knows_team_name():
-    assert process_query("What is your name") == "DR"
+    assert process_query("What is your name?") == "DR"

@@ -31,6 +31,9 @@ def process_query(q):
     if q == "dinosaurs":
         return render_template("dinosaur.html")
 
+    elif q == "What is your name?":
+        return "DR"
+
     elif q == "asteroids":
         return "Unknown"
 
