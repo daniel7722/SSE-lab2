@@ -26,3 +26,7 @@ def test_add_number():
 
 def test_knows_team_name():
     assert process_query("What is your name?") == "DR"
+
+
+def test_knows_number_largest_98():
+    assert process_query("	Which of the following numbers is the largest: 98, 21, 41?") == '98'
