@@ -46,6 +46,7 @@ def process_query(q):
     elif q == "Which of the following numbers is the largest: 98, 21, 41?":
         return '98'
 
+
 def add_numbers(a, b):
     return a + b
 
