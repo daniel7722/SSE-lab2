@@ -54,7 +54,6 @@
 		</div>
 	</nav>
 
-	<header id="fh5co-header" class="fh5co-cover js-fullheight" role="banner">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
@@ -76,6 +75,9 @@
                         <td>
                             <h3>Last Updated</h3>
                         </td>
+                        <td>
+                            <h3>Latest Commit Information</h3>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,13 +90,22 @@
                             </div>
                         </td>
                         {% endfor %}
+                        {% for commit in committable[loop.index] %}
+                        <td>
+                            <div class="col-md-16 text-center">
+                              <p>
+                                Hash: {{ commit[0] }} <br />
+                                Author: {{ commit[1] }} <br />
+                                Date: {{ commit[2] }} <br />
+                                Message: {{ commit [3] }} <br />
+                            </p>
+                            </div>
+                        </td>
                     </tr>
                     {% endfor %}   
                 </tbody>
             </table>
 		</div>
-	</header>
-	
 	<!-- jQuery -->
 	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 	<!-- jQuery Easing -->
