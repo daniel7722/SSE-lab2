@@ -194,21 +194,20 @@ def github_api():
             repo_dates.append(repo["updated_at"][:10])
             reponame = repo["name"]
             repo_commit_info = []
+            more_info = requests.get(f"https://api.github.com/repos/{username}/{reponame}/commits")
+            more_info_JSON = more_info.json()
             try:
-                more_info = requests.get(f"https://api.github.com/repos/{username}/{reponame}/commits")
+                repo_commit_info.append(more_info_JSON[0]["sha"])
+                repo_commit_info.append(more_info_JSON[0]["commit"]["author"]["name"])
+                repo_commit_info.append(more_info_JSON[0]["commit"]["author"]["date"][:10])
+                repo_commit_info.append(more_info_JSON[0]["commit"]["message"])
+                repo_commit_table.append(repo_commit_info)
             except KeyError:
                 repo_commit_info.append("Private")
                 repo_commit_info.append("Private")
                 repo_commit_info.append("Private")
                 repo_commit_info.append("Private")
                 repo_commit_table.append(repo_commit_info)
-            more_info_JSON = more_info.json()
-            print(more_info_JSON[0])
-            repo_commit_info.append(more_info_JSON[0]["sha"])
-            repo_commit_info.append(more_info_JSON[0]["commit"]["author"]["name"])
-            repo_commit_info.append(more_info_JSON[0]["commit"]["author"]["date"][:10])
-            repo_commit_info.append(more_info_JSON[0]["commit"]["message"])
-            repo_commit_table.append(repo_commit_info)
         for n, d in zip(repo_name, repo_dates):
             repo_table.append([n, d])
     else:
