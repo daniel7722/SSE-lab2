@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import re
 import math
 import requests
+import datetime
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -182,7 +183,6 @@ def github_api():
     response = requests.get(f"https://api.github.com/users/{username}/repos")
     name_length = len(username) + 1
     repo_name, repo_dates, repo_commit_table, repo_table = [], [], [], []
-    print(username)
     print(response.status_code)
     if response.status_code == 200:
         repos = response.json()  # data returned is a list of 'repository' entities
@@ -212,10 +212,12 @@ def github_api():
     return render_template("githubresponse.html", name=username, repotable=repo_table, committable=repo_commit_table)
 
 
-def get_trending_repositories(since=None, access_token=None, limit=10):
+def get_trending_repositories(limit=10):
     base_url = "https://api.github.com/search/repositories"
+    today = datetime.date.today()
+    one_month = today - datetime.timedelta(days=30)
     query_params = {
-        "q": "created:>=2023-10-01",
+        "q": f"created:{one_month}",
         "sort": "stars",
         "order": "desc"
     }
