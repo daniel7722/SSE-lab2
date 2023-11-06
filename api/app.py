@@ -180,7 +180,6 @@ def is_board_valid(board):
 def github_api():
     username = request.form.get("username")
     response = requests.get(f"https://api.github.com/users/{username}/repos")
-        
     name_length = len(username) + 1
     repo_name, repo_dates, repo_commit_table, repo_table = [], [], [], []
     print(username)
@@ -210,14 +209,7 @@ def github_api():
             repo_table.append([n, d])
     else:
         return "run out of rate limit"
-    # Example usage:
-    trending_repositories = get_trending_repositories()
-
-    trend_repo = []
-    for repo in trending_repositories:
-        trend_repo.append([repo["name"], repo["html_url"]])
-    print(trend_repo)
-    return render_template("githubresponse.html", name=username, repotable=repo_table, committable=repo_commit_table, trendrepo=trend_repo)
+    return render_template("githubresponse.html", name=username, repotable=repo_table, committable=repo_commit_table)
 
 
 def get_trending_repositories(since=None, access_token=None, limit=10):
@@ -244,3 +236,13 @@ def get_trending_repositories(since=None, access_token=None, limit=10):
 @app.route("/github_form")
 def github_form():
     return render_template("githubapi.html")
+
+
+@app.route("/github_trending")
+def github_trending():
+    trending_repositories = get_trending_repositories()
+    trend_repo = []
+    for repo in trending_repositories:
+        trend_repo.append([repo["name"], repo["description"], repo["html_url"]])
+    print(trend_repo)
+    return render_template("github_trending.html", trendrepo=trend_repo)
