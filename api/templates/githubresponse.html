@@ -66,6 +66,30 @@
 					</div>
 				</div>
 			</div>
+            <div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<div class="display-t js-fullheight">
+						<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
+							<h1>Here is a table with all of your repos:</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+            <table class="table">
+                <tbody>
+                    {% for row in repotable %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>
+                            <div class="col-md-16 text-center">
+                              <p>{{ cell }}</p>
+                            </div>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}   
+                </tbody>
+            </table>
 		</div>
 	</header>
 	
