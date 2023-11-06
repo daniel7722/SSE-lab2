@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import re
 import math
+import requests
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -178,4 +179,17 @@ def is_board_valid(board):
 @app.route("/github_api", methods=["POST"])
 def github_api():
     input_name = request.form.get("username")
-    return render_template("githubapiresponse.html", name=input_name)
+    response = requests.get(f"https://api.github.com/users/{input_name}/repos")
+    name_length = len(input_name)
+    if response.status_code == 200:
+        repos = response.json()  # data returned is a list of 'repository' entities
+        for repo in repos:
+            print(repo["full_name"][name_length+1:])
+    else:
+        print("failed")
+    return render_template("githubresponse.html", name=input_name)
+
+
+@app.route("/github_form")
+def github_form():
+    return render_template("githubapi.html")
