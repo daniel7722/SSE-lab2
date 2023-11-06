@@ -62,20 +62,22 @@
 					<div class="display-t js-fullheight">
 						<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
 							<h1>Hello {{name}}</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-            <div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<div class="display-t js-fullheight">
-						<div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
-							<h1>Here is a table with all of your repos:</h1>
+							<p>Here is a table with all of your repos:</p>
 						</div>
 					</div>
 				</div>
 			</div>
             <table class="table">
+                <thead>
+                    <tr>
+                        <td>
+                            <p>Repository Name</p>
+                        </td>
+                        <td>
+                            <p>Last Updated</p>
+                        </td>
+                    </tr>
+                </thead>
                 <tbody>
                     {% for row in repotable %}
                     <tr>
