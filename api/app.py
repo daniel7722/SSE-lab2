@@ -181,13 +181,19 @@ def github_api():
     input_name = request.form.get("username")
     response = requests.get(f"https://api.github.com/users/{input_name}/repos")
     name_length = len(input_name)
+    repo_name = []
+    repo_dates = []
+    repo_table = []
     if response.status_code == 200:
         repos = response.json()  # data returned is a list of 'repository' entities
         for repo in repos:
-            print(repo["full_name"][name_length + 1:])
+            repo_name.append(repo["full_name"][name_length + 1:])
+            repo_dates.append(repo["updated_at"][:10])
+        for n, d in zip(repo_name, repo_dates):
+            repo_table.append([n, d])
     else:
         print("failed")
-    return render_template("githubresponse.html", name=input_name)
+    return render_template("githubresponse.html", name=input_name, repotable=repo_table)
 
 
 @app.route("/github_form")
