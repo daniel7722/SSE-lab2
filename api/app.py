@@ -179,10 +179,8 @@ def is_board_valid(board):
 @app.route("/github_api", methods=["POST"])
 def github_api():
     username = request.form.get("username")
-    try:
-        response = requests.get(f"https://api.github.com/users/{username}/repos")
-    except KeyError:
-        return ""
+    response = requests.get(f"https://api.github.com/users/{username}/repos")
+        
     name_length = len(username) + 1
     repo_name, repo_dates, repo_commit_table, repo_table = [], [], [], []
     print(username)
@@ -211,8 +209,36 @@ def github_api():
         for n, d in zip(repo_name, repo_dates):
             repo_table.append([n, d])
     else:
-        print("failed")
-    return render_template("githubresponse.html", name=username, repotable=repo_table, committable=repo_commit_table)
+        return "run out of rate limit"
+    # Example usage:
+    trending_repositories = get_trending_repositories()
+
+    trend_repo = []
+    for repo in trending_repositories:
+        trend_repo.append([repo["name"], repo["html_url"]])
+    print(trend_repo)
+    return render_template("githubresponse.html", name=username, repotable=repo_table, committable=repo_commit_table, trendrepo=trend_repo)
+
+
+def get_trending_repositories(since=None, access_token=None, limit=10):
+    base_url = "https://api.github.com/search/repositories"
+    query_params = {
+        "q": "created:>=2023-10-01",
+        "sort": "stars",
+        "order": "desc"
+    }
+    headers = {
+        "Accept": "application/vnd.github.preview"
+    }
+
+    response = requests.get(base_url, params=query_params, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        repositories = data.get("items", [])[:limit]
+        return repositories
+    else:
+        print(f"Failed to retrieve trending repositories. Status code: {response.status_code}")
+        return []
 
 
 @app.route("/github_form")
