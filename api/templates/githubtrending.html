@@ -60,9 +60,7 @@
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>Hello {{name}}</h1>
-							<p>Here is a table with all of your repos:</p>
-							<p><li><a href="/github_trending">If you want a table with trending repositories, click me!</a></li></p>
+							<h1>10 Most Trending Repos on Github</h1>
 							<p></p>
 							<p></p>
 						</div>
@@ -76,15 +74,15 @@
                             <h3>Repository Name</h3>
                         </td>
                         <td>
-                            <h3>Last Updated</h3>
+                            <h3>Description</h3>
                         </td>
                         <td>
-                            <h3>Latest Commit Information</h3>
+                            <h3>Link</h3>
                         </td>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for row in repotable %}
+                    {% for row in trendrepo %}
                     <tr>
                         <td>
                             <div class="col-md-16 text-center">
@@ -98,12 +96,7 @@
                         </td>
                         <td>
                             <div class="col-md-16 text-center">
-                                <p>
-                                <font color="white">Hash:</font> {{ committable[loop.index - 1][0] }} <br />
-                                <font color="white">Author:</font> {{ committable[loop.index - 1][1] }} <br />
-                                <font color="white">Date:</font> {{ committable[loop.index - 1][2] }} <br />
-                                <font color="white">Message:</font> {{ committable[loop.index - 1][3] }} <br />
-                                </p>
+                              <p>{{ row[2] }}</p>
                             </div>
                         </td>
                     </tr>
