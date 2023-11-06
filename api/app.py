@@ -178,22 +178,33 @@ def is_board_valid(board):
 
 @app.route("/github_api", methods=["POST"])
 def github_api():
-    input_name = request.form.get("username")
-    response = requests.get(f"https://api.github.com/users/{input_name}/repos")
-    name_length = len(input_name)
+    Username = request.form.get("username")
+    response = requests.get(f"https://api.github.com/users/{Username}/repos")
+    name_length = len(Username)
     repo_name = []
     repo_dates = []
+    repo_commit_info = []
+    repo_commit_table = []
     repo_table = []
     if response.status_code == 200:
         repos = response.json()  # data returned is a list of 'repository' entities
         for repo in repos:
             repo_name.append(repo["full_name"][name_length + 1:])
             repo_dates.append(repo["updated_at"][:10])
+            nammee = repo["name"]
+            more_info = requests.get(f"https://api.github.com/repos/{Username}/{nammee}/commits")
+            more_info_JSON = more_info.json()
+            repo_commit_info = []
+            repo_commit_info.append(more_info_JSON[0]["sha"])
+            repo_commit_info.append(more_info_JSON[0]["commit"]["author"]["name"])
+            repo_commit_info.append(more_info_JSON[0]["commit"]["author"]["date"][:10])
+            repo_commit_info.append(more_info_JSON[0]["commit"]["message"])
+            repo_commit_table.append(repo_commit_info)
         for n, d in zip(repo_name, repo_dates):
             repo_table.append([n, d])
     else:
         print("failed")
-    return render_template("githubresponse.html", name=input_name, repotable=repo_table)
+    return render_template("githubresponse.html", name=Username, repotable=repo_table, committable=repo_commit_table)
 
 
 @app.route("/github_form")
