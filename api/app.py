@@ -173,3 +173,9 @@ def is_board_valid(board):
                         if count_square == 2:
                             return False
     return True
+
+
+@app.route("/github_api", methods=["POST"])
+def github_api():
+    input_name = request.form.get("username")
+    return render_template("githubapiresponse.html", name=input_name)
