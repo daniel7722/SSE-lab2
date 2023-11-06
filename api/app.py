@@ -184,7 +184,7 @@ def github_api():
     if response.status_code == 200:
         repos = response.json()  # data returned is a list of 'repository' entities
         for repo in repos:
-            print(repo["full_name"][name_length+1:])
+            print(repo["full_name"][name_length + 1:])
     else:
         print("failed")
     return render_template("githubresponse.html", name=input_name)
