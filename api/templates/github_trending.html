@@ -61,6 +61,7 @@
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
 							<h1>10 Most Trending Repos on Github</h1>
+							<p>Click them to take you to the repo, and hover over them to see description!</p>
 							<p></p>
 							<p></p>
 						</div>
@@ -68,38 +69,18 @@
 				</div>
 			</div>
             <table class="table">
-                <thead>
-                    <tr>
-                        <td>
-                            <h3>Repository Name</h3>
-                        </td>
-                        <td>
-                            <h3>Description</h3>
-                        </td>
-                        <td>
-                            <h3>Link</h3>
-                        </td>
-                    </tr>
-                </thead>
                 <tbody>
                     {% for row in trendrepo %}
-                    <tr>
-                        <td>
-                            <div class="col-md-16 text-center">
-                              <p>{{ row[0] }}</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="col-md-16 text-center">
-                              <p>{{ row[1] }}</p>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="col-md-16 text-center">
-                              <p><a href="{{ row[2] }}">{{ row[2] }}</a></p>
-                            </div>
-                        </td>
-                    </tr>
+					<div class="cardhold">
+						<a href="{{row[2]}}">
+							<div class="card">
+								<h4><b>{{row[0]}}</b></h4>
+								<div class="twocontainer">
+									<p>{{row[1]}}</p> 
+								</div>
+							</div>
+						</a>
+					</div>
                     {% endfor %}
                 </tbody>
             </table>
