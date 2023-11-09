@@ -12,13 +12,6 @@ document.write('<nav class="fh5co-nav" role="navigation">\
 							<li><a href="/sudoku">Sudoku Solver</a></li>\
 							<li><a href="/github_form">Form</a></li>\
 							<li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Mystery</a></li>\
-                            <li>\
-                                <form id="searchForm" action="/query" method="GET">\
-                                    <label for="search">Search:</label>\
-                                    <input type="search" id="search" name="q">\
-                                    <input type="submit" value="Submit">\
-                                </form>\
-                            </li>\
 						</ul>\
 					</div>\
 				</div>\
@@ -26,3 +19,12 @@ document.write('<nav class="fh5co-nav" role="navigation">\
 			</div>\
 		</div>\
 	</nav>');
+
+
+{/* <li>\
+<form id="searchForm" action="/query" method="GET">\
+<label for="search">Search:</label>\
+<input type="search" id="search" name="q">\
+<input type="submit" value="Submit">\
+</form>\
+</li>\ */}
