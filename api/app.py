@@ -71,7 +71,9 @@ def process_query(q):
         numbers = [int(num) for num in numbers]
         return str(multiply_numbers(numbers))
 
-    return ""
+    else: 
+        return render_template("index.html")
+
 
 
 def add_numbers(listOfNumber):
