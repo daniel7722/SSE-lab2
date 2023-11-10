@@ -1636,7 +1636,7 @@ input::-webkit-inner-spin-button {
   border-radius: 20px;
   text-align: center;
   padding: 10px;
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .card h4 {
@@ -1645,7 +1645,7 @@ input::-webkit-inner-spin-button {
 
 .card:hover {
   box-shadow: 0 8px 16px 0 cadetblue;
-  background-color: rgb(175, 174, 174);
+  background-color: rgb(48, 44, 44) !important;
 }
 
 .card:hover h4{
