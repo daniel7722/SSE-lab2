@@ -1640,7 +1640,7 @@ input::-webkit-inner-spin-button {
 }
 
 .card h4 {
-  color: white;
+  color: rgb(161, 161, 161);
 }
 
 .card:hover {
