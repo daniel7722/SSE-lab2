@@ -1631,25 +1631,24 @@ input::-webkit-inner-spin-button {
   flex-grow: 1;
 }
 
-.card {
+.cardtwo {
   transition: 0.3s;
   border-radius: 20px;
   text-align: center;
   padding: 10px;
-  background-color: transparent !important;
 }
 
-.card h4 {
+.cardtwo h4 {
   color: rgb(161, 161, 161);
 }
 
-.card:hover {
+.cardtwo:hover {
   box-shadow: 0 8px 16px 0 cadetblue;
   background-color: rgb(48, 44, 44) !important;
 }
 
-.card:hover h4{
-  color: #077d71;
+.cardtwo:hover h4{
+  color: #0db3a3;
 }
 
 .twocontainer {
@@ -1658,7 +1657,7 @@ input::-webkit-inner-spin-button {
   text-align: center;
 }
     
-.card:hover .twocontainer {
+.cardtwo:hover .twocontainer {
   display: block;
 }
 

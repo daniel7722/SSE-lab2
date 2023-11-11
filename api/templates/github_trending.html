@@ -75,22 +75,18 @@
 					</div>
 				</div>
 			</div>
-            <table class="table">
-                <tbody>
-                    {% for row in trendrepo %}
-					<div class="cardhold">
-						<a href="{{row[2]}}">
-							<div class="card">
-								<h4><b>{{row[0]}}</b></h4>
-								<div class="twocontainer">
-									<p>{{row[1]}}</p> 
-								</div>
-							</div>
-						</a>
+            {% for row in trendrepo %}
+			<div class="cardhold">
+				<a href="{{row[2]}}">
+					<div class="cardtwo">
+						<h4><b>{{row[0]}}</b></h4>
+						<div class="twocontainer">
+							<p>{{row[1]}}</p> 
+						</div>
 					</div>
-                    {% endfor %}
-                </tbody>
-            </table>
+				</a>
+			</div>
+			{% endfor %}
 		</div>
 	<!-- jQuery -->
 	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
